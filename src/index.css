@@ -11,11 +11,14 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 1rem;
     background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    background-attachment: fixed;
 }
 
 .wrapper {
     display: flex;
+    align-items: flex-start;
     gap: 1rem;
 }
 

@@ -103,7 +103,7 @@ function App() {
     }, [removed])
 
     function saveResults(crown = false) {
-        setResults(prev => [...prev, {stopwatch: crown ? `👑 ${stopwatch}` : stopwatch, points}])
+        setResults(prev => [{stopwatch: crown ? `👑 ${stopwatch}` : stopwatch, points}, ...prev])
         resetCards()
         setRemoved([])
 
@@ -188,7 +188,7 @@ function App() {
                         </tr>
                         </thead>
                         <tbody>
-                        {results.reverse().map(({stopwatch, points}, index) => (
+                        {results.map(({stopwatch, points}, index) => (
                             <tr key={index}>
                                 <td>{stopwatch}</td>
                                 <td>{points}</td>
