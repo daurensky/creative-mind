@@ -118,7 +118,7 @@ function App() {
         if (firstCardId === null) {
             setFirstCardId(id)
             setFirstCardValue(value)
-        } else if (secondCardId === null) {
+        } else if (secondCardId === null && firstCardId !== id) {
             setSecondCardId(id)
             setSecondCardValue(value)
         }
