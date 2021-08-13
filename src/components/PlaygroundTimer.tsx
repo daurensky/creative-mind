@@ -1,12 +1,12 @@
 import React from 'react'
 import useAppSelector from '../hooks/useAppSelector'
 
-function Timer() {
+function PlaygroundTimer() {
     const timer = useAppSelector(state => state.time.timer)
 
     return (
-        <span className="countdown">{timer}</span>
+        <span className="timer">{timer}</span>
     )
 }
 
-export default Timer
+export default PlaygroundTimer

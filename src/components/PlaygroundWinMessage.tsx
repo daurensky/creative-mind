@@ -1,6 +1,6 @@
 import React from 'react'
 
-function WinMessage() {
+function PlaygroundWinMessage() {
     return (
         <div className="win">
             👑 🎉 Вы выиграли!
@@ -8,4 +8,4 @@ function WinMessage() {
     )
 }
 
-export default WinMessage
+export default PlaygroundWinMessage

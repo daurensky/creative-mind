@@ -1,16 +1,16 @@
 import React from 'react'
-import Header from './components/Header'
-import AreaPlayground from './components/AreaPlayground'
-import AreaResult from './components/AreaResult'
+import GameBar from './components/GameBar'
+import Playground from './components/Playground'
+import Result from './components/Result'
 
 function App() {
     return (
         <div className="container">
-            <Header/>
+            <GameBar/>
 
             <div className="wrapper">
-                <AreaPlayground/>
-                <AreaResult/>
+                <Playground/>
+                <Result/>
             </div>
         </div>
     )

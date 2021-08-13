@@ -2,7 +2,7 @@ import React from 'react'
 import useAppDispatch from '../hooks/useAppDispatch'
 import {setFirstId, setFirstValue, setSecondId, setSecondValue} from '../store/cardsSlice'
 
-function PlaygroundCard({id, value, firstId, secondId, gameStarted, cardRemoved}: PlaygroundCard) {
+function PlaygroundTableCard({id, value, firstId, secondId, gameStarted, cardRemoved}: PlaygroundCard) {
     const dispatch = useAppDispatch()
 
     function handleClick() {
@@ -33,4 +33,4 @@ function PlaygroundCard({id, value, firstId, secondId, gameStarted, cardRemoved}
     )
 }
 
-export default PlaygroundCard
+export default PlaygroundTableCard

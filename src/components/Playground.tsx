@@ -1,36 +1,75 @@
 import React, {useEffect, useState} from 'react'
+import PlaygroundWinMessage from './PlaygroundWinMessage'
 import useAppSelector from '../hooks/useAppSelector'
-import PlaygroundCard from './PlaygroundCard'
+import PlaygroundTimer from './PlaygroundTimer'
+import PlaygroundTable from './PlaygroundTable'
+import useAppDispatch from '../hooks/useAppDispatch'
+import {resetCards, removeValueOfPairedCards} from '../store/cardsSlice'
+import {addPoint, gameStop, win} from '../store/gameSlice'
+import {resetTimer, tickTimer} from '../store/timeSlice'
 import initCards from '../support/initCards'
 
-function Playground({cards}: { cards: CardRow[][] }) {
-    const firstCardId = useAppSelector(state => state.cards.first.id)
-    const secondCardId = useAppSelector(state => state.cards.second.id)
-    const valuesOfRemoved = useAppSelector(state => state.cards.valuesOfRemoved)
+function Playground() {
+    const dispatch = useAppDispatch()
 
+    const [cards, setCards] = useState<CardRow[][]>([])
+
+    const firstCardValue = useAppSelector(state => state.cards.first.value)
+    const secondCardValue = useAppSelector(state => state.cards.second.value)
+    const valuesOfRemoved = useAppSelector(state => state.cards.valuesOfRemoved)
     const won = useAppSelector(state => state.game.won)
     const started = useAppSelector(state => state.game.started)
 
+    useEffect(() => {
+        tickTimer()
+        const TOTAL_CARDS = process.env.REACT_APP_TOTAL_CARDS
+
+        if (TOTAL_CARDS) {
+            setCards(initCards(TOTAL_CARDS))
+        } else {
+            alert('REACT_APP_TOTAL_CARDS не найден в .env')
+        }
+    }, [started])
+
+    useEffect(() => {
+        if (firstCardValue !== null) {
+            const timer = setInterval(() => {
+                dispatch(tickTimer())
+            }, 1000)
+
+            return () => clearInterval(timer)
+        }
+    }, [firstCardValue])
+
+    useEffect(() => {
+        if (firstCardValue !== null && secondCardValue !== null) {
+            setTimeout(() => {
+                if (firstCardValue === secondCardValue) {
+                    dispatch(addPoint())
+                    dispatch(removeValueOfPairedCards(firstCardValue))
+                }
+
+                dispatch(resetCards())
+                dispatch(resetTimer())
+            }, 600)
+        }
+    }, [secondCardValue])
+
+    useEffect(() => {
+        const TOTAL_CARDS = process.env.REACT_APP_TOTAL_CARDS
+
+        if (valuesOfRemoved.length.toString() === TOTAL_CARDS) {
+            dispatch(win())
+            dispatch(gameStop())
+        }
+    }, [valuesOfRemoved])
+
     return (
-        <table className={`playground ${won ? 'blurred' : ''}`}>
-            <tbody>
-            {cards.map((row, index) => (
-                <tr key={index}>
-                    {row.map(({id, value}) => (
-                        <PlaygroundCard
-                            id={id}
-                            value={value}
-                            cardRemoved={valuesOfRemoved.includes(value)}
-                            gameStarted={started}
-                            firstId={firstCardId}
-                            secondId={secondCardId}
-                            key={id}
-                        />
-                    ))}
-                </tr>
-            ))}
-            </tbody>
-        </table>
+        <div className="area">
+            {firstCardValue && <PlaygroundTimer/>}
+            {won && <PlaygroundWinMessage/>}
+            <PlaygroundTable cards={cards}/>
+        </div>
     )
 }
 

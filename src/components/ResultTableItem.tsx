@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ResultItem({stopwatch, points}: ResultItem) {
+function ResultTableItem({stopwatch, points}: ResultItem) {
     return (
         <tr>
             <td>{stopwatch}</td>
@@ -9,4 +9,4 @@ function ResultItem({stopwatch, points}: ResultItem) {
     )
 }
 
-export default ResultItem
+export default ResultTableItem

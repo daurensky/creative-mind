@@ -5,7 +5,7 @@ import {gameStart, gameStop, addResult, resetPoints, resetWin} from '../store/ga
 import {tickStopWatch, resetStopwatch, resetTimer} from '../store/timeSlice'
 import {resetCards, resetValuesOfRemoved} from '../store/cardsSlice'
 
-function Header() {
+function GameBar() {
     const dispatch = useAppDispatch()
 
     const stopwatch = useAppSelector(state => state.time.stopwatch)
@@ -45,7 +45,7 @@ function Header() {
     }, [started])
 
     return (
-        <div className="header">
+        <div className="game-bar">
             <h2>{stopwatch}</h2>
             <h2>Счет: {points}</h2>
             <button onClick={handleClick} className="start-btn">{started ? 'Стоп' : 'Старт'}</button>
@@ -53,4 +53,4 @@ function Header() {
     )
 }
 
-export default Header
+export default GameBar
