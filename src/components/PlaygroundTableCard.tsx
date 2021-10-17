@@ -23,9 +23,9 @@ function PlaygroundTableCard({id, value, firstId, secondId, gameStarted, cardRem
                 <div className={`card ${!gameStarted ? 'disabled' : ''}`}
                      onClick={handleClick}>
                     {(firstId === id || secondId === id) ? (
-                        <img src={`/img/${value}.png`} alt={value.toString()} width={60}/>
+                        <img src={`./img/${value}.png`} alt={value.toString()} width={60}/>
                     ) : (
-                        <img src={`/img/question.png`} alt="Unselected card" width={60}/>
+                        <img src={`./img/question.png`} alt="Unselected card" width={60}/>
                     )}
                 </div>
             )}
